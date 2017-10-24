@@ -11,6 +11,7 @@ Uygulama da her bir kişinin ad,soyad,e-mail,adres ve telefon bilgisi(bir veya d
 >- Kullanıcı şifresini unuttuğu taktirde giriş ekranından "şifremi unuttum" seçeneğini kullandığı anda sistemde kayıtlı mail adresine giriş bilgileri gönderilecektir.
 >- Kullanıcı başarılı bir şekilde giriş yaptıktan sonra yeni kişi ekleyebilir,var olan kişinin bilgilerini düzenleyebilir ve silebilir. 
 >- Kullanıcı Ad-Soyad bilgileri ile arama yapabilir.
+>- Daha fazla detay için [videoyu](https://www.youtube.com/watch?v=wtgCObFX6Ks&t=7s) izleyebilirsiniz. 
 #### **Teknik Seçimler**
 Uygulamada **JSF**,**JPA**,**MAVEN**,**PRIMEFACES**,**HTML 5**,**CSS** ve **GLASSFISH SERVER** sistemleri kullanılmıştır. 
 > **JSF** Uygulamadaki ön yüz için kullanılmıştır. **PRIMEFACES** ile kullanımda oldukça pratik ve kullanışlıdır. 
