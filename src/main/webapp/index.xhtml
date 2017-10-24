@@ -51,7 +51,7 @@
                     
                 <p:inputTextarea value="#{indexBean.kisi.kisiAdres}"  autoResize="true" placeholder="Adres" maxlength="255" required="true"  style="width: 230px;float:left;">
                 <f:validateLength minimum="3" /><p:ajax event="keyup" update="in1" />
-                <p:keyFilter regEx="/[a-zÇĞıİÖŞÜ/)-. ]/i"/></p:inputTextarea>
+                <p:keyFilter regEx="/[a-zÇĞıİÖŞÜ/)-.0-9 ]/i"/></p:inputTextarea>
                    
                 <p:commandButton id="in1"  immediate="true"  action="#{indexBean.kisiKaydet()}"   icon="ui-icon-plus" />    
                     
@@ -184,7 +184,7 @@
                                 <h:panelGrid  columns="1" cellpadding="1" style="border-style: hidden !important" >
                                 <p:inputTextarea value="#{indexBean.degisken}" placeholder="#{kisiler.kisiAdres}" maxlength="255" required="true"  >
                                 <p:ajax event="keyup" update="out4" />
-                                <p:keyFilter regEx="/[a-zÇĞıİÖŞÜ/)-. ]/i"/>
+                                <p:keyFilter regEx="/[a-zÇĞıİÖŞÜ/)-.0-9 ]/i"/>
                                 </p:inputTextarea>
                                 <p:commandButton id="out4"  immediate="true"  action="#{indexBean.Duzenle(kisiler.kisiId,4)}"  icon="ui-icon-refresh" style="background-color: #71FEDC;"/>
                                 </h:panelGrid>
