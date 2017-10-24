@@ -26,8 +26,9 @@ Uygulamada **JSF**,**JPA**,**MAVEN**,**PRIMEFACES**,**HTML 5**,**CSS** ve **GLAS
 > - İsim - Soyisim ekleme ve değiştirme kısımlarında minimum 2 karakter girilmesi gerekmektedir.
 > - Yönetici şifresi en az 3 karakterden oluşmalıdır.
 > - Eklenecek veya değiştirilecek veri boş olamaz. 
->-  İsme ve soysime göre arama yapılırken primefacesin sağladığı imkanlardan faydalandım. Böylece sorgu çalıştırmadan aradığımız veriye ulaştım. 
-####<i class="icon-wrench"></i> **Kurulum ve Sistem Gereksinimleri**
+>-  İsme ve soysime göre arama yapılırken primefacesin sağladığı imkanlardan faydalandım. Böylece sorgu çalıştırmadan aradığımız veriye ulaştım.
+
+#### <i class="icon-wrench"></i> **Kurulum ve Sistem Gereksinimleri**
 > Glassfish Server ile kurulum.
 > - Sistemimizde Glassfish Server 4.1 veya üstü kurulu olması gerekir.
 > - Glassfish başlatılır ve yönetini paneline giriş yapılır.(Default olarak 4848 portunu kullanarak yönetini paneline giriş yapabiliriz. http://localhost:4848 )
