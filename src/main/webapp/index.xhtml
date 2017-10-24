@@ -1,0 +1,246 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Kişi Listem</title>
+        <link rel="stylesheet" href="style.css" />
+        <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700' rel='stylesheet' type='text/css'/>
+        <link href='https://fonts.googleapis.com/css?family=Alex+Brush' rel='stylesheet' type='text/css'/>
+        <link href='https://fonts.googleapis.com/css?family=Raleway:700,400,300' rel='stylesheet' type='text/css'/>
+    </h:head>
+    
+    <h:body>
+        <p:growl  id="bildiri" sticky="true" showDetail="true" globalOnly="true"  />
+            <h:form id="rehberim"  style="align-content: center;width: auto;text-align: center;  width:80%;background-color: #F09F97;
+                                        height:auto;box-shadow: -5px -5px 30px #FDFAAB, 5px 5px 30px #FDFAAB;">
+
+                <p:dataTable id="kisilerim" style="width:auto;height: inherit;" value="#{indexBean.getir()}" resizableColumns="true" var="kisiler" widgetVar="kisilerim"
+                              paginator="true"  rows="10" rowKey="#{kisiler.kisiId}" editable="true"   emptyMessage="Kayıt bulunamadı">
+    <f:facet name="header">
+
+            <p:commandButton value="Yeni Kişi" onclick="PF('dlg').show();"  style="float:left;background-color: #45BF1F;" type="button" icon="ui-icon-plus" />
+            <p:commandButton value="Çıkış" immediate="true" action="#{indexBean.cikisYap()}" style="float:right;background-color: #F09F97;"  icon=" ui-icon-close" />
+            <p:commandButton value="Yönetici Bilgileri Düzenle" onclick="PF('adminduzenle').show();"  style="float:right;background-color: #F7F8C3;" type="button" icon="ui-icon-pencil" />
+            
+  
+        <p:dialog header="Yeni Kişi Kaydı" widgetVar="dlg" resizable="false" width="300px" style="background-color: #1CAC72;">
+            <h:panelGrid columns="1" cellpadding="1" style="border-style: hidden !important" >
+                
+                <p:inputText  value="#{indexBean.kisi.kisiAd}" autocomplete="false" placeholder="Ad" maxlength="255" required="true" >
+                <f:validateLength minimum="2" /><p:ajax event="keyup" update="in1" />
+                <p:keyFilter regEx="/[a-zÇĞıİÖŞÜ ]/i"/></p:inputText>
+                    
+                <p:inputText value="#{indexBean.kisi.kisiSoyad}" autocomplete="false" placeholder="Soyad" maxlength="255" required="true" >
+                <f:validateLength minimum="2" /><p:ajax event="keyup" update="in1" />
+                <p:keyFilter regEx="/[a-zÇĞıİÖŞÜ ]/i"/></p:inputText>
+                    
+                <p:inputText  value="#{indexBean.kisi.kisiMail}" autocomplete="false" placeholder="e-mail" maxlength="255" required="true" >
+                <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                <p:ajax event="keyup" update="in1" /></p:inputText>
+                    
+                <p:inputText  value="#{indexBean.numara.nuTel}" autocomplete="false" placeholder="Telefon no" maxlength="255">
+                <f:validateLength minimum="10" /><p:ajax event="keyup" update="in1" />
+                <p:keyFilter regEx="/[0-9-+ ]/i" /></p:inputText>
+                    
+                <p:inputText value="#{indexBean.numara.nuAciklama}" autocomplete="false" placeholder="Telefon Açıklama" maxlength="255" > 
+                <f:validateLength minimum="3" /><p:ajax event="keyup" update="in1" />
+                <p:keyFilter regEx="/[a-zÇĞıİÖŞÜ ]/i"/></p:inputText>
+                    
+                <p:inputTextarea value="#{indexBean.kisi.kisiAdres}"  autoResize="true" placeholder="Adres" maxlength="255" required="true"  style="width: 230px;float:left;">
+                <f:validateLength minimum="3" /><p:ajax event="keyup" update="in1" />
+                <p:keyFilter regEx="/[a-zÇĞıİÖŞÜ/)-. ]/i"/></p:inputTextarea>
+                   
+                <p:commandButton id="in1"  immediate="true"  action="#{indexBean.kisiKaydet()}"   icon="ui-icon-plus" />    
+                    
+            </h:panelGrid>
+        </p:dialog>
+          
+        <p:dialog  header="Kullanıcı Bilgileri" widgetVar="adminduzenle" resizable="true" width="400px" style="background-color: white;" closeOnEscape="true" >
+            <h:panelGrid  columns="1" cellpadding="1" style="border-style: hidden !important;" >
+                <p:row>  <h:outputText  value="Kullanıcı adı:#{indexBean.adminGetir().userAd}" style="float: left;"/>
+                <p:commandButton title="Adı düzenle"  onclick="PF('adminadduzenle').show();"   style="background-color: white;border-color: white;float: left;" type="button" icon="ui-icon-pencil" /></p:row>
+                
+                <p:row> <h:outputText  value="e-mail:#{indexBean.adminGetir().userEmail}" style="float: left;"/> 
+                <p:commandButton title="e-mail adresini düzenle"  onclick="PF('adminemailduzenle').show();"   style="background-color: white;border-color: white;float: left;" type="button" icon="ui-icon-pencil" /></p:row>
+                               
+                <p:row><h:outputText  value="Şifre:****" style="float: left;"/>
+                <p:commandButton title="Şifreyi düzenle" onclick="PF('adminsifreduzenle').show();"   style="background-color: white;border-color: white;float: left;" type="button" icon="ui-icon-pencil" /></p:row>       
+            </h:panelGrid>
+        </p:dialog>
+           
+       
+        <p:dialog  header="Kullanıcı Adı Değiştir" widgetVar="adminadduzenle" resizable="true" width="300px" style="background-color: white;" closeOnEscape="true" >
+            <h:panelGrid  columns="1" cellpadding="1" style="border-style: hidden !important;" >
+                
+                <p:inputText value="#{indexBean.degisken}" placeholder="Yeni ad" maxlength="255" required="true" >
+                <f:validateLength minimum="3" /><p:ajax event="keyup" update="out8" />
+                <p:keyFilter regEx="/[a-zÇĞıİÖŞÜ ]/i"/></p:inputText>
+                              
+                <p:password value="#{indexBean.sifre}" placeholder="Mevcut Şifreniz" maxlength="255" required="true"  >
+                <p:keyFilter regEx="/[a-zÇĞıİÖŞÜ0-9 ]/i"/><p:ajax event="keyup" update="out8" /></p:password>
+                
+                <p:commandButton id="out8" immediate="true"  action="#{indexBean.adminDuzenle(1)}"  icon="ui-icon-refresh" style="background-color: #71FEDC;"/>
+            </h:panelGrid>
+        </p:dialog>
+            
+        <p:dialog  header="Kullanıcı E-mail Değiştir" widgetVar="adminemailduzenle" resizable="true" width="300px" style="background-color: white;" closeOnEscape="true" >
+            <h:panelGrid  columns="1" cellpadding="1" style="border-style: hidden !important;" >           
+                <p:inputText value="#{indexBean.degisken}" placeholder="Yeni e-mail" maxlength="255" required="true"   >
+                <f:validateLength minimum="4" /><p:ajax event="keyup" update="out9" />
+                <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" /></p:inputText>
+                 
+                <p:password value="#{indexBean.sifre}" placeholder="Mevcut Şifreniz" maxlength="255" required="true"   >
+                <p:keyFilter regEx="/[a-zÇĞıİÖŞÜ0-9 ]/i"/><p:ajax event="keyup" update="out9" /></p:password>
+                
+                <p:commandButton id="out9" immediate="true"  action="#{indexBean.adminDuzenle(2)}"  icon="ui-icon-refresh" style="background-color: #71FEDC;"/>
+            </h:panelGrid>
+        </p:dialog>        
+            
+        <p:dialog  header="Kullanıcı Şifre Değiştir" widgetVar="adminsifreduzenle" resizable="true" width="300px" style="background-color: white;" closeOnEscape="true" >
+            <h:panelGrid  columns="1" cellpadding="1" style="border-style: hidden !important;" >
+                <p:password value="#{indexBean.degisken}" placeholder="Yeni şifreniz" maxlength="255" required="true"   >
+                <f:validateLength minimum="4" /><p:ajax event="keyup" update="out10" />
+                <p:keyFilter regEx="/[a-zÇĞıİÖŞÜ0-9 ]/i"/> </p:password>
+                              
+                <p:password value="#{indexBean.sifre}" placeholder="Mevcut Şifreniz" maxlength="255" required="true"   >
+                <p:keyFilter regEx="/[a-zÇĞıİÖŞÜ0-9 ]/i"/><p:ajax event="keyup" update="out10" /></p:password>
+                
+                <p:commandButton id="out10" immediate="true"   action="#{indexBean.adminDuzenle(3)}"  icon="ui-icon-refresh" style="background-color: #71FEDC;"/>
+            </h:panelGrid>
+        </p:dialog>
+            
+    </f:facet>
+                         
+            <p:column style="width:16px;"><p:rowToggler /> </p:column>
+                
+            <p:column headerText="ad" sortBy="#{kisiler.kisiAd}" filterBy="#{kisiler.kisiAd}" >
+            <h:outputText value="#{kisiler.kisiAd}"/></p:column>
+            
+            <p:column headerText="soyad" sortBy="#{kisiler.kisiSoyad}"  filterBy="#{kisiler.kisiSoyad}">
+            <h:outputText value="#{kisiler.kisiSoyad}"/></p:column >
+            
+            <p:column headerText="email" style="width: auto;">
+            <h:outputText value="#{kisiler.kisiMail}"/></p:column>   
+            
+            <p:column style="width:32px;text-align: center;">
+            <p:commandButton immediate="true" process="@this"  action="#{indexBean.Sil(kisiler.kisiId)}"  icon="ui-icon-trash" style="background-color: #F44545;">
+            <p:confirm header="Sil" message="#{kisiler.kisiAd} adlı kişiyi silmek istediğinize emin misiniz?" icon="ui-icon-trash"/>     
+            </p:commandButton>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Evet" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="Hayır" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+            </p:column>
+            
+        <p:rowExpansion>              
+            <p:panelGrid columns="1" style="border-style: hidden !important; width:inherit;text-align: left;" >
+                <p:row>
+                    <h:outputText value="#{kisiler.kisiAd}" />
+                        <p:commandButton  onclick="PF('adduzenle').show();"   style="background-color: white;border-color: white;" type="button" icon="ui-icon-pencil" />
+                            <p:dialog header="Ad Düzenle" widgetVar="adduzenle" resizable="false" width="300px" style="background-color: white;" closeOnEscape="true" >
+                                <h:panelGrid  columns="1" cellpadding="1" style="border-style: hidden !important" >
+                                <p:inputText value="#{indexBean.degisken}" placeholder="#{kisiler.kisiAd}" maxlength="255" required="true"  >
+                                <p:ajax event="keyup" update="out1" /><f:validateLength minimum="2" />
+                                <p:keyFilter regEx="/[a-zÇĞıİÖŞÜ ]/i"/></p:inputText>
+                                <p:commandButton id="out1"  immediate="true"   action="#{indexBean.Duzenle(kisiler.kisiId,1)}"  icon="ui-icon-refresh" style="background-color: #71FEDC;"/>
+                                </h:panelGrid>
+                            </p:dialog>
+                </p:row>
+                
+                <p:row>
+                    <h:outputText value="#{kisiler.kisiSoyad}" />
+                        <p:commandButton  onclick="PF('soyadduzenle').show();"   style="background-color: white;border-color: white;" type="button" icon="ui-icon-pencil" />
+                            <p:dialog header="Soyad Düzenle" widgetVar="soyadduzenle" resizable="false" width="300px" style="background-color: white;" closeOnEscape="true" >
+                                <h:panelGrid  columns="1" cellpadding="1" style="border-style: hidden !important" >
+                                <p:inputText value="#{indexBean.degisken}" placeholder="#{kisiler.kisiSoyad}" maxlength="255" required="true"   >
+                                <p:ajax event="keyup" update="out2" /><f:validateLength minimum="2" />
+                                <p:keyFilter regEx="/[a-zÇĞıİÖŞÜ ]/i"/></p:inputText>
+                                <p:commandButton id="out2"  immediate="true"  action="#{indexBean.Duzenle(kisiler.kisiId,2)}"  icon="ui-icon-refresh" style="background-color: #71FEDC;"/>
+                                </h:panelGrid>
+                            </p:dialog>
+                </p:row>
+                
+                <p:row>
+                    <h:outputText value="#{kisiler.kisiMail}" />
+                        <p:commandButton  onclick="PF('emailduzenle').show();"   style="background-color: white;border-color: white;" type="button" icon="ui-icon-pencil" />
+                            <p:dialog header="e-mail Düzenle" widgetVar="emailduzenle" resizable="false" width="300px" style="background-color: white;" closeOnEscape="true" >
+                                <h:panelGrid  columns="1" cellpadding="1" style="border-style: hidden !important" >
+                                <p:inputText  value="#{indexBean.degisken}"  placeholder="#{kisiler.kisiMail}" maxlength="255" required="true">
+                                <p:ajax event="blur" update="out3" />
+                                <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                                </p:inputText>
+                                <p:commandButton id="out3"  immediate="true"  action="#{indexBean.Duzenle(kisiler.kisiId,3)}"  icon="ui-icon-refresh" style="background-color: #71FEDC;"/>
+                                </h:panelGrid>
+                            </p:dialog>
+                </p:row>
+                
+                <p:row>
+                    <h:outputText value="#{kisiler.kisiAdres}" />
+                        <p:commandButton  onclick="PF('adresduzenle').show();"   style="background-color: white;border-color: white;" type="button" icon="ui-icon-pencil" />
+                            <p:dialog header="Adres Düzenle" widgetVar="adresduzenle" resizable="false" width="300px" style="background-color: white;" closeOnEscape="true" >
+                                <h:panelGrid  columns="1" cellpadding="1" style="border-style: hidden !important" >
+                                <p:inputTextarea value="#{indexBean.degisken}" placeholder="#{kisiler.kisiAdres}" maxlength="255" required="true"  >
+                                <p:ajax event="keyup" update="out4" />
+                                <p:keyFilter regEx="/[a-zÇĞıİÖŞÜ/)-. ]/i"/>
+                                </p:inputTextarea>
+                                <p:commandButton id="out4"  immediate="true"  action="#{indexBean.Duzenle(kisiler.kisiId,4)}"  icon="ui-icon-refresh" style="background-color: #71FEDC;"/>
+                                </h:panelGrid>
+                            </p:dialog>
+                </p:row>
+                
+                <p:row>
+                    <p:dataList id="numaralarim"  var="numara" lazy="true" value="#{kisiler.numaraList}" emptyMessage="Kayıt bulunamadı" type="none" >
+                    <h:outputText style="text-align: left;" value="#{numara.nuTel} - #{numara.nuAciklama}"/>
+                        <p:commandButton immediate="true" title="Düzenle"  onclick="PF('telduzenle').show();" action="#{indexBean.nuid(numara.nuId,numara.nuTel,numara.nuAciklama)}"  style="background-color: white;border-color: white;"  icon="ui-icon-pencil" />
+                        <p:commandButton immediate="true" title="Sil"  update="@form" action ="#{indexBean.noSil(numara.nuId,kisiler.kisiId)}"  icon="ui-icon-trash" style="background-color: white;border-color: white;"/><br></br>
+                            <p:dialog  header="Telefon Düzenle"  widgetVar="telduzenle" resizable="false" width="300px" style="background-color: white;" closeOnEscape="true" >
+                                <h:panelGrid  columns="1" cellpadding="1" style="border-style: hidden !important" >
+                                <p:inputText  value="#{indexBean.numara.nuTel}" placeholder="Numarayı Düzenle" maxlength="255">
+                                <p:ajax event="keypress" update="out6" /><p:ajax event="mouseover" update="out6" />
+                                <p:ajax event="focus" update="out6" /><f:validateLength minimum="10" />
+                                <p:keyFilter regEx="/[0-9-+ ]/i" />
+                                </p:inputText>
+                                
+                                <p:inputText value="#{indexBean.numara.nuAciklama}" placeholder="Açıklaması" maxlength="255"  >
+                                <p:ajax event="keyup" update="out6" /><p:ajax event="keypress" update="out6" />
+                                <p:ajax event="focus" update="out6" /><f:validateLength minimum="3" />
+                                <p:keyFilter regEx="/[a-zÇĞıİÖŞÜ ]/i"/>
+                                </p:inputText>
+                                    
+                                <p:commandButton id="out6"  immediate="true"  action="#{indexBean.NoDuzenle(indexBean.degisken)}"  icon="ui-icon-refresh" style="background-color: #71FEDC;"/>
+                                </h:panelGrid>
+                            </p:dialog>
+                                
+        
+                    </p:dataList>
+                </p:row>
+                        
+                <p:row>
+                    <p:commandButton value="Yeni Numara" onclick="PF('yeninumara').show();"  style="width:50%;font-size:15px;  float:left;background-color: #45BF1F;" type="button" icon="ui-icon-plus" />
+                            <p:dialog header="Yeni Numara Ekle" widgetVar="yeninumara" resizable="false" width="300px" style="background-color: white;" closeOnEscape="true" >
+                                <h:panelGrid  columns="1" cellpadding="1" style="border-style: hidden !important" >
+                                <p:inputText value="#{indexBean.numara.nuTel}" placeholder="Telefon Numarası" maxlength="255" required="true"  >                    
+                                <f:validateLength minimum="10" /><p:ajax event="keyup" update="out7" /><p:keyFilter regEx="/[0-9-+ ]/i" />
+                                </p:inputText>
+                                    
+                                <p:inputText value="#{indexBean.numara.nuAciklama}" placeholder="Açıklaması" maxlength="255" required="true"   >                    
+                                <p:keyFilter regEx="/[a-zÇĞıİÖŞÜ ]/i"/><p:ajax event="keyup" update="out7" />
+                                </p:inputText>
+                                    
+                                <p:commandButton id="out7"  immediate="true" action="#{indexBean.NoEkle(kisiler.kisiId,indexBean.numara.nuTel,indexBean.numara.nuAciklama)}"  icon="ui-icon-disk" style="background-color: #71FEDC;"/>  
+                                </h:panelGrid>
+                            </p:dialog>
+                </p:row>
+             
+            </p:panelGrid>
+        </p:rowExpansion>
+                
+                </p:dataTable>
+        </h:form>
+    </h:body>
+    
+</html>
+
