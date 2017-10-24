@@ -20,7 +20,7 @@ Uygulamada **JSF**,**JPA**,**MAVEN**,**PRIMEFACES**,**HTML 5**,**CSS** ve **GLAS
 > **GLASSFISH SERVER** 'i tercih ettim. Daha az sorun çıkartması ve yönetici panelinin kullanılabilirliği göz önüne alındığında diğerlerinden bir adım öne çıktı.
 
 >*Uygulama içinde kullanılan kısıtlamalar ve tercihler.
-
+>- Default olarak giriş bilgileri kullanıcı adı mehmet şifre 1234 'dür.
 > - Girilen verilerin uzunluğu en fazla 255 karakterden oluşabilir.
 > - Telefon numarası (yurt içi ve yurt dışı kayıtlar göz önüne alındığından dolayı) en az 10 karakterden oluşmalıdır. Telefon numarası eklerken "+ -" gibi sembol ve boşluk kullanımına izin verilmiştir.
 > - İsim - Soyisim ekleme ve değiştirme kısımlarında minimum 2 karakter girilmesi gerekmektedir.
